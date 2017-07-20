@@ -1,0 +1,486 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     21013,        477]
+NotebookOptionsPosition[     20446,        453]
+NotebookOutlinePosition[     20885,        471]
+CellTagsIndexPosition[     20842,        468]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"numQubits", "=", "4"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"baseCardinalities", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "3"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"dCardinalities", "=", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", "2"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Compute", " ", "all", " ", "base", " ", "hypergraphs", " ", "valid", " ", 
+    "for", " ", "Pure", " ", "erasure", " ", "correcting", " ", "codes"}], 
+   " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"baseHs", "=", 
+   RowBox[{"{", 
+    RowBox[{"{", "}"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"For", "[", 
+   RowBox[{
+    RowBox[{"qubit", "=", "1"}], ",", 
+    RowBox[{"qubit", "\[LessEqual]", "numQubits"}], ",", 
+    RowBox[{"qubit", "++"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"newEdges", "=", 
+      RowBox[{"Subsets", "[", 
+       RowBox[{
+        RowBox[{"Range", "[", 
+         RowBox[{"qubit", ",", "numQubits"}], "]"}], ",", 
+        "baseCardinalities"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"newEdges", "=", 
+      RowBox[{"Select", "[", 
+       RowBox[{"newEdges", ",", 
+        RowBox[{
+         RowBox[{"MemberQ", "[", 
+          RowBox[{"#", ",", "qubit"}], "]"}], "&"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"newEdgeHypergraphs", "=", 
+      RowBox[{"Subsets", "[", "newEdges", "]"}]}], ";", "\[IndentingNewLine]",
+      "\[IndentingNewLine]", 
+     RowBox[{"baseHsData", "=", 
+      RowBox[{
+       RowBox[{"Reap", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"For", "[", 
+          RowBox[{
+           RowBox[{"i", "=", "1"}], ",", 
+           RowBox[{"i", "\[LessEqual]", 
+            RowBox[{"Length", "[", "baseHs", "]"}]}], ",", 
+           RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"For", "[", 
+             RowBox[{
+              RowBox[{"j", "=", "1"}], ",", 
+              RowBox[{"j", "\[LessEqual]", 
+               RowBox[{"Length", "[", "newEdgeHypergraphs", "]"}]}], ",", 
+              RowBox[{"j", "++"}], ",", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"Sow", "[", 
+                RowBox[{"Sort", "[", 
+                 RowBox[{"Union", "[", 
+                  RowBox[{
+                   RowBox[{"baseHs", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}], ",", 
+                   RowBox[{"newEdgeHypergraphs", "[", 
+                    RowBox[{"[", "j", "]"}], "]"}]}], " ", "]"}], "]"}], 
+                "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";"}]}], 
+          "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", "]"}], 
+       "[", 
+       RowBox[{"[", "2", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Length", "[", "baseHsData", "]"}], ">", "0"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"baseHs", "=", 
+         RowBox[{"baseHsData", "[", 
+          RowBox[{"[", "1", "]"}], "]"}]}], ";"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"baseHs", "=", 
+         RowBox[{"{", "}"}]}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"baseHs", "=", 
+      RowBox[{"Select", "[", 
+       RowBox[{"baseHs", ",", 
+        RowBox[{
+         RowBox[{"isOrthogonal", "[", 
+          RowBox[{
+           RowBox[{"compactProjection", "[", 
+            RowBox[{"#", ",", "qubit", ",", "numQubits"}], "]"}], ",", 
+           RowBox[{"numQubits", "-", "1"}]}], "]"}], "&"}]}], "]"}]}], 
+     ";"}]}], "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Print", "[", 
+    RowBox[{"\"\<Base hypergraphs: \>\"", ",", 
+     RowBox[{"Length", "[", "baseHs", "]"}]}], "]"}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Memorize", " ", "base", " ", "hypegraphs", " ", "in", " ", "a", " ", 
+    "map", " ", "for", " ", "easy", " ", "access"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Clear", "[", "isValidBase", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"For", "[", 
+    RowBox[{
+     RowBox[{"i", "=", "1"}], ",", 
+     RowBox[{"i", "\[LessEqual]", 
+      RowBox[{"Length", "[", "baseHs", "]"}]}], ",", 
+     RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"isValidBase", "[", 
+        RowBox[{"baseHs", "[", 
+         RowBox[{"[", "i", "]"}], "]"}], "]"}], "=", "True"}], ";"}]}], 
+    "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Filter", " ", "base", " ", "hypergraphs"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"filteredBaseHs", "=", 
+   RowBox[{"Select", "[", 
+    RowBox[{"baseHs", ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Max", "[", 
+        RowBox[{"Map", "[", 
+         RowBox[{"Length", ",", "#"}], "]"}], "]"}], "\[GreaterEqual]", " ", 
+       "3"}], "&"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Print", "[", 
+    RowBox[{"\"\<Filtered base hypergraphs: \>\"", ",", 
+     RowBox[{"Length", "[", "filteredBaseHs", "]"}]}], "]"}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Compute", " ", "all", " ", "difference", " ", "hypergraphs", " ", "valid",
+     " ", "for", " ", "erasure", " ", "correcting", " ", "codes"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"allEdges", "=", 
+   RowBox[{"Subsets", "[", 
+    RowBox[{
+     RowBox[{"Range", "[", 
+      RowBox[{"1", ",", "numQubits"}], "]"}], ",", "dCardinalities"}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"dHs", "=", 
+   RowBox[{"Subsets", "[", "allEdges", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"dHs", "=", 
+   RowBox[{"Select", "[", 
+    RowBox[{"dHs", ",", 
+     RowBox[{
+      RowBox[{"isOrthogonal", "[", 
+       RowBox[{"#", ",", "numQubits"}], "]"}], "&"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"For", "[", 
+   RowBox[{
+    RowBox[{"i", "=", "1"}], ",", 
+    RowBox[{"i", "\[LessEqual]", " ", "numQubits"}], ",", " ", 
+    RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"dHs", "=", 
+      RowBox[{"Select", "[", 
+       RowBox[{"dHs", ",", 
+        RowBox[{
+         RowBox[{"areOrthogonal", "[", 
+          RowBox[{"#", ",", 
+           RowBox[{"{", 
+            RowBox[{"{", "i", "}"}], "}"}], ",", "numQubits"}], "]"}], 
+         "&"}]}], "]"}]}], ";"}]}], "\[IndentingNewLine]", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Print", "[", 
+    RowBox[{"\"\<Difference hypergraphs: \>\"", ",", 
+     RowBox[{"Length", "[", "dHs", "]"}]}], "]"}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Get", " ", "all", " ", "2", " ", "dimensional", " ", "pure", " ", 
+    "erasure", " ", "correcting", " ", "codes"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ECCsData", "=", 
+   RowBox[{
+    RowBox[{"Reap", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"For", "[", 
+       RowBox[{
+        RowBox[{"i", "=", "1"}], ",", 
+        RowBox[{"i", "\[LessEqual]", 
+         RowBox[{"Length", "[", "filteredBaseHs", "]"}]}], ",", 
+        RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"For", "[", 
+          RowBox[{
+           RowBox[{"j", "=", "1"}], ",", 
+           RowBox[{"j", "\[LessEqual]", " ", 
+            RowBox[{"Length", "[", "dHs", "]"}]}], ",", 
+           RowBox[{"j", "++"}], ",", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"isValidBase", "[", 
+                RowBox[{"overlay", "[", 
+                 RowBox[{
+                  RowBox[{"filteredBaseHs", "[", 
+                   RowBox[{"[", "i", "]"}], "]"}], ",", 
+                  RowBox[{"dHs", "[", 
+                   RowBox[{"[", "j", "]"}], "]"}]}], "]"}], "]"}], "\[Equal]",
+                "True"}], ",", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"Flag", "=", "1"}], ";", "\[IndentingNewLine]", 
+               RowBox[{"For", " ", "[", 
+                RowBox[{
+                 RowBox[{"k", "=", "1"}], ",", 
+                 RowBox[{"k", "\[LessEqual]", " ", "numQubits"}], ",", 
+                 RowBox[{"k", "++"}], ",", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{"undecoratedProjection", "=", 
+                   RowBox[{"overlay", "[", 
+                    RowBox[{
+                    RowBox[{"projection", "[", 
+                    RowBox[{
+                    RowBox[{"filteredBaseHs", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}], ",", "k"}], "]"}], ",", 
+                    RowBox[{"dHs", "[", 
+                    RowBox[{"[", "j", "]"}], "]"}]}], "]"}]}], ";", 
+                  "\[IndentingNewLine]", 
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                    RowBox[{"isOrthogonal", "[", 
+                    RowBox[{"undecoratedProjection", ",", "numQubits"}], 
+                    "]"}], ",", "\[IndentingNewLine]", ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Flag", "=", "0"}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"Break", "[", "]"}], ";"}]}], 
+                   "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                    RowBox[{"areOrthogonal", "[", 
+                    RowBox[{"undecoratedProjection", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"{", "k", "}"}], "}"}], ",", "numQubits"}], "]"}],
+                     ",", "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Flag", "=", "0"}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"Break", "[", "]"}], ";"}]}], 
+                   "\[IndentingNewLine]", "]"}], ";"}]}], 
+                "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{"Flag", "\[Equal]", "1"}], ",", 
+                 "\[IndentingNewLine]", 
+                 RowBox[{"Sow", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"filteredBaseHs", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}], ",", 
+                    RowBox[{"dHs", "[", 
+                    RowBox[{"[", "j", "]"}], "]"}]}], "}"}], "]"}]}], 
+                "\[IndentingNewLine]", "]"}], ";"}]}], "\[IndentingNewLine]", 
+             "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";"}]}], 
+       "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", "]"}], "[", 
+    RowBox[{"[", "2", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Length", "[", "ECCsData", "]"}], ">", "0"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"ECCs", "=", 
+      RowBox[{"ECCsData", "[", 
+       RowBox[{"[", "1", "]"}], "]"}]}], ";"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"ECCs", "=", 
+      RowBox[{"{", "}"}]}], ";"}]}], "\[IndentingNewLine]", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"\"\<Erasure correcting codes: \>\"", ",", 
+    RowBox[{"Length", "[", "ECCs", "]"}]}], "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.709285779877336*^9, 3.7092857914895897`*^9}, {
+   3.709286081810763*^9, 3.70928613596824*^9}, 3.709286181774694*^9, {
+   3.709286277264694*^9, 3.709286324658855*^9}, 3.7092867303337307`*^9, {
+   3.709286770158432*^9, 3.709286771765864*^9}, {3.709287096057416*^9, 
+   3.7092871243288403`*^9}, {3.7092871556594667`*^9, 3.70928724554533*^9}, {
+   3.709287404370182*^9, 3.709287648687121*^9}, {3.709287688683467*^9, 
+   3.709287691763431*^9}, 3.7092877546211853`*^9, {3.709287852554536*^9, 
+   3.70928793066298*^9}, {3.709288117054591*^9, 3.709288125085615*^9}, {
+   3.7092882002759666`*^9, 3.709288210197776*^9}, {3.709288282701631*^9, 
+   3.709288287892696*^9}, {3.709288325363288*^9, 3.709288416438917*^9}, {
+   3.70928856987537*^9, 3.7092885776446466`*^9}, {3.709288629234173*^9, 
+   3.709288630236362*^9}, {3.709288683893705*^9, 3.709288712714731*^9}, {
+   3.709288901836361*^9, 3.709289050013735*^9}, {3.709289104525445*^9, 
+   3.70928917725254*^9}, {3.709289218522972*^9, 3.709289242496004*^9}, 
+   3.709289323304058*^9, {3.709289353479142*^9, 3.709289353901887*^9}, {
+   3.709289398877569*^9, 3.709289498953953*^9}, {3.709289590493616*^9, 
+   3.709289658428958*^9}, {3.7092896898194036`*^9, 3.7092896991125803`*^9}, {
+   3.709289738381576*^9, 3.709289755792111*^9}, {3.70929021063446*^9, 
+   3.709290249515964*^9}, {3.7092902804845667`*^9, 3.7092903328057203`*^9}, {
+   3.709290706843951*^9, 3.709290949803225*^9}, {3.709291011558707*^9, 
+   3.709291036047791*^9}, {3.7092911135643578`*^9, 3.709291138396757*^9}, 
+   3.709291175774089*^9, {3.709291641320073*^9, 3.709291692697112*^9}, {
+   3.709291744939221*^9, 3.709291979491665*^9}, {3.709292055612138*^9, 
+   3.709292123074377*^9}, 3.7092921736464853`*^9, {3.709292265428911*^9, 
+   3.709292369398147*^9}, {3.7092924110586967`*^9, 3.70929249554012*^9}, {
+   3.709292528341187*^9, 3.709292533545506*^9}, {3.709292638274877*^9, 
+   3.7092926487577143`*^9}, {3.7092928066094933`*^9, 3.709292889088312*^9}, {
+   3.709292952292759*^9, 3.7092930254023457`*^9}, {3.7092930707955923`*^9, 
+   3.70929309607913*^9}, 3.7092941391022463`*^9, {3.7092948739383507`*^9, 
+   3.709294927035779*^9}, {3.709295099081387*^9, 3.709295099375435*^9}, {
+   3.709295181799322*^9, 3.709295250620875*^9}, {3.70935652915177*^9, 
+   3.709356533277907*^9}, {3.709356967143784*^9, 3.709356975486257*^9}, {
+   3.7093576128045597`*^9, 3.709358007572207*^9}, {3.709358098881094*^9, 
+   3.70935815268857*^9}, {3.7093581833389606`*^9, 3.709358208014892*^9}, {
+   3.709358368824225*^9, 3.709358384049573*^9}, 3.70935842858003*^9, {
+   3.709358477787916*^9, 3.709358535127882*^9}, {3.7093585906385813`*^9, 
+   3.709358708266987*^9}, {3.709358914098117*^9, 3.70935891872056*^9}, {
+   3.7093596202551403`*^9, 3.7093596312401743`*^9}, {3.709359728911334*^9, 
+   3.709359731894055*^9}, 3.709359782084049*^9, {3.709447160323222*^9, 
+   3.709447221431789*^9}, {3.7094532827570877`*^9, 3.709453291106653*^9}, {
+   3.7095273765846043`*^9, 3.709527376956027*^9}, {3.709530703301529*^9, 
+   3.709530704733492*^9}, {3.7095307933107452`*^9, 3.709530832249168*^9}, {
+   3.709530915314232*^9, 3.7095311003942757`*^9}, {3.7095311730229483`*^9, 
+   3.709531188682486*^9}, {3.7095312370513163`*^9, 3.709531251445146*^9}, {
+   3.70953129490152*^9, 3.709531316032566*^9}, {3.7095313462061167`*^9, 
+   3.709531396750567*^9}, {3.709531429840887*^9, 3.709531447813026*^9}, {
+   3.709531502306272*^9, 3.709531615040658*^9}, {3.709531656387004*^9, 
+   3.709531771070615*^9}, {3.7095322841542387`*^9, 3.709532296121591*^9}, {
+   3.709532371692827*^9, 3.7095324360081577`*^9}, {3.7095324765034227`*^9, 
+   3.709532563343959*^9}, {3.709532669264987*^9, 3.709532678851907*^9}, {
+   3.709532732402486*^9, 3.709532867797714*^9}, {3.709532910126669*^9, 
+   3.709532911750301*^9}, {3.709533037804196*^9, 3.709533060029172*^9}, {
+   3.709533136196684*^9, 3.709533160018344*^9}, {3.7095568869429398`*^9, 
+   3.709556907674838*^9}, {3.709556949098011*^9, 3.709556952264473*^9}, {
+   3.709557015812598*^9, 3.709557061952516*^9}, {3.709557160301035*^9, 
+   3.709557183175788*^9}, 3.7095572138263063`*^9, {3.709557259001857*^9, 
+   3.709557291853094*^9}, {3.709557355720223*^9, 3.70955740652346*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Base hypergraphs: \"\>", "\[InvisibleSpace]", "2064"}],
+  SequenceForm["Base hypergraphs: ", 2064],
+  Editable->False]], "Print",
+ CellChangeTimes->{{3.7092952022844753`*^9, 3.709295253806253*^9}, 
+   3.709356495379054*^9, 3.709357939834496*^9, 3.709357998300522*^9, 
+   3.70935803730823*^9, 3.709358154676218*^9, 3.709358209759972*^9, 
+   3.709358389901826*^9, 3.709358430333514*^9, 3.709358710322126*^9, 
+   3.7093596335591383`*^9, 3.709359769207632*^9, {3.7095324144404993`*^9, 
+   3.709532438482017*^9}, 3.709532888792939*^9, 3.7095330777260647`*^9, 
+   3.709533168222096*^9, {3.709539405530038*^9, 3.7095394242171288`*^9}, {
+   3.709556910562338*^9, 3.7095569331094*^9}, 3.7095570314969*^9, 
+   3.709557064999093*^9, {3.709557166786624*^9, 3.709557216100692*^9}, 
+   3.709557300122012*^9, {3.709557382985805*^9, 3.709557410405591*^9}, 
+   3.709557465052532*^9, 3.709557527178426*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Filtered base hypergraphs: \"\>", "\[InvisibleSpace]", "1408"}],
+  SequenceForm["Filtered base hypergraphs: ", 1408],
+  Editable->False]], "Print",
+ CellChangeTimes->{{3.7092952022844753`*^9, 3.709295253806253*^9}, 
+   3.709356495379054*^9, 3.709357939834496*^9, 3.709357998300522*^9, 
+   3.70935803730823*^9, 3.709358154676218*^9, 3.709358209759972*^9, 
+   3.709358389901826*^9, 3.709358430333514*^9, 3.709358710322126*^9, 
+   3.7093596335591383`*^9, 3.709359769207632*^9, {3.7095324144404993`*^9, 
+   3.709532438482017*^9}, 3.709532888792939*^9, 3.7095330777260647`*^9, 
+   3.709533168222096*^9, {3.709539405530038*^9, 3.7095394242171288`*^9}, {
+   3.709556910562338*^9, 3.7095569331094*^9}, 3.7095570314969*^9, 
+   3.709557064999093*^9, {3.709557166786624*^9, 3.709557216100692*^9}, 
+   3.709557300122012*^9, {3.709557382985805*^9, 3.709557410405591*^9}, 
+   3.709557465052532*^9, 3.709557527211998*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Difference hypergraphs: \"\>", "\[InvisibleSpace]", "111"}],
+  SequenceForm["Difference hypergraphs: ", 111],
+  Editable->False]], "Print",
+ CellChangeTimes->{{3.7092952022844753`*^9, 3.709295253806253*^9}, 
+   3.709356495379054*^9, 3.709357939834496*^9, 3.709357998300522*^9, 
+   3.70935803730823*^9, 3.709358154676218*^9, 3.709358209759972*^9, 
+   3.709358389901826*^9, 3.709358430333514*^9, 3.709358710322126*^9, 
+   3.7093596335591383`*^9, 3.709359769207632*^9, {3.7095324144404993`*^9, 
+   3.709532438482017*^9}, 3.709532888792939*^9, 3.7095330777260647`*^9, 
+   3.709533168222096*^9, {3.709539405530038*^9, 3.7095394242171288`*^9}, {
+   3.709556910562338*^9, 3.7095569331094*^9}, 3.7095570314969*^9, 
+   3.709557064999093*^9, {3.709557166786624*^9, 3.709557216100692*^9}, 
+   3.709557300122012*^9, {3.709557382985805*^9, 3.709557410405591*^9}, 
+   3.709557465052532*^9, 3.7095575273376427`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Erasure correcting codes: \"\>", "\[InvisibleSpace]", "3840"}],
+  
+  SequenceForm["Erasure correcting codes: ", 3840],
+  Editable->False]], "Print",
+ CellChangeTimes->{{3.7092952022844753`*^9, 3.709295253806253*^9}, 
+   3.709356495379054*^9, 3.709357939834496*^9, 3.709357998300522*^9, 
+   3.70935803730823*^9, 3.709358154676218*^9, 3.709358209759972*^9, 
+   3.709358389901826*^9, 3.709358430333514*^9, 3.709358710322126*^9, 
+   3.7093596335591383`*^9, 3.709359769207632*^9, {3.7095324144404993`*^9, 
+   3.709532438482017*^9}, 3.709532888792939*^9, 3.7095330777260647`*^9, 
+   3.709533168222096*^9, {3.709539405530038*^9, 3.7095394242171288`*^9}, {
+   3.709556910562338*^9, 3.7095569331094*^9}, 3.7095570314969*^9, 
+   3.709557064999093*^9, {3.709557166786624*^9, 3.709557216100692*^9}, 
+   3.709557300122012*^9, {3.709557382985805*^9, 3.709557410405591*^9}, 
+   3.709557465052532*^9, 3.709557538072899*^9}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1225, 756},
+WindowMargins->{{-2, Automatic}, {Automatic, 0}},
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
+2011)",
+StyleDefinitions->"Default.nb",
+PrivateNotebookOptions -> {
+ "VersionedStylesheet" -> {"Default.nb"[8.] -> False}}
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 16008, 356, 1153, "Input"],
+Cell[CellGroupData[{
+Cell[16612, 382, 937, 15, 20, "Print"],
+Cell[17552, 399, 955, 15, 20, "Print"],
+Cell[18510, 416, 949, 15, 20, "Print"],
+Cell[19462, 433, 956, 16, 20, "Print"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
