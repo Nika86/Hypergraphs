@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     12057,        313]
-NotebookOptionsPosition[     11717,        297]
-NotebookOutlinePosition[     12156,        315]
-CellTagsIndexPosition[     12113,        312]
+NotebookDataLength[     12697,        331]
+NotebookOptionsPosition[     12357,        315]
+NotebookOutlinePosition[     12796,        333]
+CellTagsIndexPosition[     12753,        330]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -232,6 +232,23 @@ Cell[BoxData[{
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
+   RowBox[{
+    RowBox[{"PermuteVertices", "[", 
+     RowBox[{"h_", ",", "permutation_", ",", "numQubits_"}], "]"}], ":=", 
+    RowBox[{"Sort", "[", 
+     RowBox[{"Sort", "/@", 
+      RowBox[{"(", 
+       RowBox[{"h", "/.", 
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{"k", "\[Rule]", 
+           RowBox[{"permutation", "[", 
+            RowBox[{"[", "k", "]"}], "]"}]}], ",", 
+          RowBox[{"{", 
+           RowBox[{"k", ",", "numQubits"}], "}"}]}], "]"}]}], ")"}]}], 
+     "]"}]}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{"degree", "[", 
     RowBox[{"h_", ",", "i_"}], "]"}], ":=", 
    RowBox[{"Length", "[", 
@@ -293,7 +310,8 @@ Cell[BoxData[{
    3.7094413421308813`*^9, 3.70944137619143*^9}, {3.709441411927298*^9, 
    3.70944145038479*^9}, {3.7094417857179203`*^9, 3.709441827494154*^9}, 
    3.709441936224359*^9, {3.709442062750897*^9, 3.709442067017115*^9}, {
-   3.709442217247692*^9, 3.709442222549737*^9}}]
+   3.709442217247692*^9, 3.709442222549737*^9}, {3.7096174696512623`*^9, 
+   3.709617470778904*^9}}]
 },
 WindowSize->{1225, 756},
 WindowMargins->{{-2, Automatic}, {Automatic, 0}},
@@ -314,7 +332,7 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[557, 20, 11156, 275, 598, "Input"]
+Cell[557, 20, 11796, 293, 628, "Input"]
 }
 ]
 *)
