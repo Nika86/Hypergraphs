@@ -10,16 +10,77 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     80763,       2183]
-NotebookOptionsPosition[     79770,       2144]
-NotebookOutlinePosition[     80208,       2162]
-CellTagsIndexPosition[     80165,       2159]
+NotebookDataLength[     80943,       2194]
+NotebookOptionsPosition[     79911,       2154]
+NotebookOutlinePosition[     80349,       2172]
+CellTagsIndexPosition[     80306,       2169]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"isCorrectPair", "[", 
+    RowBox[{"baseH_", ",", "diffH_", ",", "numQubits_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"isCorrect", "=", "True"}], ",", "qubit"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"For", " ", "[", 
+       RowBox[{
+        RowBox[{"qubit", "=", "1"}], ",", 
+        RowBox[{
+         RowBox[{"qubit", "\[LessEqual]", " ", "numQubits"}], "&&", 
+         "isCorrect"}], ",", 
+        RowBox[{"qubit", "++"}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"With", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"undecoratedProjection", "=", 
+             RowBox[{"overlay", "[", 
+              RowBox[{
+               RowBox[{"projection", "[", 
+                RowBox[{"baseH", ",", "qubit"}], "]"}], ",", "diffH"}], 
+              "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{"isOrthogonal", "[", 
+               RowBox[{"undecoratedProjection", ",", "numQubits"}], "]"}], 
+              ",", "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"isCorrect", "=", "0"}], ";"}]}], 
+             "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{"areOrthogonal", "[", 
+               RowBox[{"undecoratedProjection", ",", 
+                RowBox[{"{", 
+                 RowBox[{"{", "qubit", "}"}], "}"}], ",", "numQubits"}], 
+               "]"}], ",", "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
+              
+              RowBox[{
+               RowBox[{"isCorrect", "=", "0"}], ";"}]}], 
+             "\[IndentingNewLine]", "]"}], ";"}]}], "\[IndentingNewLine]", 
+          "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
+      "\[IndentingNewLine]", "isCorrect"}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.709617815471033*^9, 3.709617817450885*^9}, 
+   3.709643629374405*^9, {3.709643671447918*^9, 3.709643699930043*^9}, {
+   3.709644332094406*^9, 3.709644339025331*^9}, {3.709645921562251*^9, 
+   3.7096459218646183`*^9}, {3.709645998539302*^9, 3.709646007020949*^9}, {
+   3.709646251062183*^9, 3.709646259862048*^9}, {3.709646334616344*^9, 
+   3.709646336327932*^9}, {3.709646424989272*^9, 3.709646442882593*^9}, {
+   3.7096465118273487`*^9, 3.7096465291676188`*^9}, {3.709646562966209*^9, 
+   3.7096466018813477`*^9}, {3.7096466852657347`*^9, 3.709646853426292*^9}}],
 
 Cell[CellGroupData[{
+
 Cell[BoxData[{
  RowBox[{
   RowBox[{"numQubits", "=", "4"}], ";"}], "\[IndentingNewLine]", 
@@ -248,49 +309,15 @@ Cell[BoxData[{
                    RowBox[{"[", "j", "]"}], "]"}]}], "]"}], "]"}], "\[Equal]",
                 "True"}], ",", "\[IndentingNewLine]", 
               RowBox[{
-               RowBox[{"Flag", "=", "1"}], ";", "\[IndentingNewLine]", 
-               RowBox[{"For", " ", "[", 
-                RowBox[{
-                 RowBox[{"k", "=", "1"}], ",", 
-                 RowBox[{"k", "\[LessEqual]", " ", "numQubits"}], ",", 
-                 RowBox[{"k", "++"}], ",", "\[IndentingNewLine]", 
-                 RowBox[{
-                  RowBox[{"undecoratedProjection", "=", 
-                   RowBox[{"overlay", "[", 
-                    RowBox[{
-                    RowBox[{"projection", "[", 
-                    RowBox[{
-                    RowBox[{"filteredBaseHs", "[", 
-                    RowBox[{"[", "i", "]"}], "]"}], ",", "k"}], "]"}], ",", 
-                    RowBox[{"dHs", "[", 
-                    RowBox[{"[", "j", "]"}], "]"}]}], "]"}]}], ";", 
-                  "\[IndentingNewLine]", 
-                  RowBox[{"If", "[", 
-                   RowBox[{
-                    RowBox[{"isOrthogonal", "[", 
-                    RowBox[{"undecoratedProjection", ",", "numQubits"}], 
-                    "]"}], ",", "\[IndentingNewLine]", ",", 
-                    "\[IndentingNewLine]", 
-                    RowBox[{
-                    RowBox[{"Flag", "=", "0"}], ";", "\[IndentingNewLine]", 
-                    RowBox[{"Break", "[", "]"}], ";"}]}], 
-                   "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
-                  RowBox[{"If", "[", 
-                   RowBox[{
-                    RowBox[{"areOrthogonal", "[", 
-                    RowBox[{"undecoratedProjection", ",", 
-                    RowBox[{"{", 
-                    RowBox[{"{", "k", "}"}], "}"}], ",", "numQubits"}], "]"}],
-                     ",", "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
-                    RowBox[{
-                    RowBox[{"Flag", "=", "0"}], ";", "\[IndentingNewLine]", 
-                    RowBox[{"Break", "[", "]"}], ";"}]}], 
-                   "\[IndentingNewLine]", "]"}], ";"}]}], 
-                "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
                RowBox[{"If", "[", 
                 RowBox[{
-                 RowBox[{"Flag", "\[Equal]", "1"}], ",", 
-                 "\[IndentingNewLine]", 
+                 RowBox[{"isCorrectPair", "[", 
+                  RowBox[{
+                   RowBox[{"filteredBaseHs", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}], ",", 
+                   RowBox[{"dHs", "[", 
+                    RowBox[{"[", "j", "]"}], "]"}], ",", "numQubits"}], "]"}],
+                  ",", "\[IndentingNewLine]", 
                  RowBox[{"Sow", "[", 
                   RowBox[{"{", 
                    RowBox[{
@@ -376,7 +403,9 @@ Cell[BoxData[{
    3.709556907674838*^9}, {3.709556949098011*^9, 3.709556952264473*^9}, {
    3.709557015812598*^9, 3.709557061952516*^9}, {3.709557160301035*^9, 
    3.709557183175788*^9}, 3.7095572138263063`*^9, {3.709557259001857*^9, 
-   3.709557291853094*^9}, {3.709557355720223*^9, 3.70955740652346*^9}}],
+   3.709557291853094*^9}, {3.709557355720223*^9, 3.70955740652346*^9}, {
+   3.709646903580065*^9, 3.709646947835986*^9}, {3.7096469785998983`*^9, 
+   3.70964697929939*^9}}],
 
 Cell[CellGroupData[{
 
@@ -396,7 +425,8 @@ Cell[BoxData[
    3.709557064999093*^9, {3.709557166786624*^9, 3.709557216100692*^9}, 
    3.709557300122012*^9, {3.709557382985805*^9, 3.709557410405591*^9}, 
    3.709557465052532*^9, 3.709557527178426*^9, 3.709617259099153*^9, 
-   3.7096174209955893`*^9, 3.709617688294083*^9}],
+   3.7096174209955893`*^9, 3.709617688294083*^9, 3.709646958196063*^9, 
+   3.709647370463344*^9}],
 
 Cell[BoxData[
  InterpretationBox[
@@ -414,7 +444,8 @@ Cell[BoxData[
    3.709557064999093*^9, {3.709557166786624*^9, 3.709557216100692*^9}, 
    3.709557300122012*^9, {3.709557382985805*^9, 3.709557410405591*^9}, 
    3.709557465052532*^9, 3.709557527178426*^9, 3.709617259099153*^9, 
-   3.7096174209955893`*^9, 3.709617688351475*^9}],
+   3.7096174209955893`*^9, 3.709617688294083*^9, 3.709646958196063*^9, 
+   3.709647370498747*^9}],
 
 Cell[BoxData[
  InterpretationBox[
@@ -432,7 +463,8 @@ Cell[BoxData[
    3.709557064999093*^9, {3.709557166786624*^9, 3.709557216100692*^9}, 
    3.709557300122012*^9, {3.709557382985805*^9, 3.709557410405591*^9}, 
    3.709557465052532*^9, 3.709557527178426*^9, 3.709617259099153*^9, 
-   3.7096174209955893`*^9, 3.709617688452064*^9}],
+   3.7096174209955893`*^9, 3.709617688294083*^9, 3.709646958196063*^9, 
+   3.709647370636221*^9}],
 
 Cell[BoxData[
  InterpretationBox[
@@ -451,7 +483,8 @@ Cell[BoxData[
    3.709557064999093*^9, {3.709557166786624*^9, 3.709557216100692*^9}, 
    3.709557300122012*^9, {3.709557382985805*^9, 3.709557410405591*^9}, 
    3.709557465052532*^9, 3.709557527178426*^9, 3.709617259099153*^9, 
-   3.7096174209955893`*^9, 3.709617699184309*^9}]
+   3.7096174209955893`*^9, 3.709617688294083*^9, 3.709646958196063*^9, 
+   3.7096473832453423`*^9}]
 }, Open  ]]
 }, Open  ]],
 
@@ -636,7 +669,7 @@ Cell[BoxData[
    3.709616723994958*^9, 3.709617010474024*^9, {3.709617125008895*^9, 
    3.709617139729992*^9}, 3.709617220801952*^9, 3.7096172798876534`*^9, {
    3.709617314862035*^9, 3.709617321598279*^9}, 3.709617439799674*^9, 
-   3.709617703768471*^9}],
+   3.709617703768471*^9, 3.7096470364212017`*^9, 3.709647385259956*^9}],
 
 Cell[BoxData[
  InterpretationBox[
@@ -649,7 +682,7 @@ Cell[BoxData[
    3.709616723994958*^9, 3.709617010474024*^9, {3.709617125008895*^9, 
    3.709617139729992*^9}, 3.709617220801952*^9, 3.7096172798876534`*^9, {
    3.709617314862035*^9, 3.709617321598279*^9}, 3.709617439799674*^9, 
-   3.709617703873333*^9}]
+   3.709617703768471*^9, 3.7096470364212017`*^9, 3.709647385352209*^9}]
 }, Open  ]]
 }, Open  ]],
 
@@ -789,44 +822,17 @@ Cell[BoxData[
                     RowBox[{"Flag", "\[Equal]", "1"}]}], ",", 
                    RowBox[{"k", "++"}], ",", "\[IndentingNewLine]", 
                    RowBox[{
-                    RowBox[{"For", "[", 
+                    RowBox[{"If", "[", 
                     RowBox[{
-                    RowBox[{"l", "=", "1"}], ",", 
-                    RowBox[{
-                    RowBox[{"l", "\[LessEqual]", "numQubits"}], "&&", 
-                    RowBox[{"Flag", "\[Equal]", "1"}]}], ",", 
-                    RowBox[{"l", "++"}], ",", "\[IndentingNewLine]", 
-                    RowBox[{
-                    RowBox[{"undecoratedProjection", "=", 
-                    RowBox[{"overlay", "[", 
-                    RowBox[{
-                    RowBox[{"projection", "[", 
+                    RowBox[{"isCorrectPair", "[", 
                     RowBox[{
                     RowBox[{"otherBases", "[", 
-                    RowBox[{"[", "j", "]"}], "]"}], ",", "l"}], "]"}], ",", 
+                    RowBox[{"[", "j", "]"}], "]"}], ",", 
                     RowBox[{"applicableDHs", "[", 
-                    RowBox[{"[", "k", "]"}], "]"}]}], "]"}]}], ";", 
-                    "\[IndentingNewLine]", 
-                    RowBox[{"If", "[", 
-                    RowBox[{
-                    RowBox[{"isOrthogonal", "[", 
-                    RowBox[{"undecoratedProjection", ",", "numQubits"}], 
-                    "]"}], ",", "\[IndentingNewLine]", ",", 
-                    "\[IndentingNewLine]", 
+                    RowBox[{"[", "k", "]"}], "]"}]}], "]"}], ",", 
+                    "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
                     RowBox[{
                     RowBox[{"Flag", "=", "0"}], ";"}]}], 
-                    "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
-                    
-                    RowBox[{"If", "[", 
-                    RowBox[{
-                    RowBox[{"areOrthogonal", "[", 
-                    RowBox[{"undecoratedProjection", ",", 
-                    RowBox[{"{", 
-                    RowBox[{"{", "l", "}"}], "}"}], ",", "numQubits"}], "]"}],
-                     ",", "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
-                    RowBox[{
-                    RowBox[{"Flag", "=", "0"}], ";"}]}], 
-                    "\[IndentingNewLine]", "]"}], ";"}]}], 
                     "\[IndentingNewLine]", "]"}], ";"}]}], 
                   "\[IndentingNewLine]", "]"}], ";"}]}], 
                "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
@@ -881,7 +887,8 @@ Cell[BoxData[
   3.7096165115512466`*^9, 3.7096166135928802`*^9}, {3.709616735977736*^9, 
   3.7096167834647837`*^9}, {3.7096168165737543`*^9, 3.7096169829456453`*^9}, {
   3.709617032055297*^9, 3.7096170491446867`*^9}, {3.709617334538405*^9, 
-  3.70961739637499*^9}}],
+  3.70961739637499*^9}, {3.709647138355654*^9, 3.709647218857725*^9}, {
+  3.709647254593577*^9, 3.709647255399872*^9}}],
 
 Cell[BoxData[
  InterpretationBox[
@@ -892,7 +899,8 @@ Cell[BoxData[
  CellChangeTimes->{
   3.709616986892558*^9, {3.709617041566189*^9, 3.7096170502394743`*^9}, {
    3.709617350978578*^9, 3.709617398908889*^9}, 3.709617446700548*^9, 
-   3.7096177086547003`*^9}]
+   3.7096177086547003`*^9, {3.709647247115419*^9, 3.709647277772128*^9}, 
+   3.709647389598215*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2139,7 +2147,9 @@ Cell[BoxData[
    GridBoxAlignment->{"Columns" -> {{Left}}},
    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
   "Column"]], "Output",
- CellChangeTimes->{3.7096175352713623`*^9, 3.7096177159849777`*^9}]
+ CellChangeTimes->{
+  3.7096175352713623`*^9, 3.7096177159849777`*^9, {3.7096472601604853`*^9, 
+   3.709647268733684*^9}, 3.7096473947418327`*^9}]
 }, Open  ]]
 },
 WindowSize->{1225, 756},
@@ -2161,29 +2171,30 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
+Cell[557, 20, 2649, 59, 238, "Input"],
 Cell[CellGroupData[{
-Cell[579, 22, 16008, 356, 1153, "Input"],
+Cell[3231, 83, 14317, 324, 943, "Input"],
 Cell[CellGroupData[{
-Cell[16612, 382, 1009, 16, 20, "Print"],
-Cell[17624, 400, 1027, 16, 20, "Print"],
-Cell[18654, 418, 1019, 16, 20, "Print"],
-Cell[19676, 436, 1028, 17, 20, "Print"]
+Cell[17573, 411, 1057, 17, 20, "Print"],
+Cell[18633, 430, 1075, 17, 20, "Print"],
+Cell[19711, 449, 1067, 17, 20, "Print"],
+Cell[20781, 468, 1078, 18, 20, "Print"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[20753, 459, 6697, 165, 568, "Input"],
+Cell[21908, 492, 6697, 165, 568, "Input"],
 Cell[CellGroupData[{
-Cell[27475, 628, 503, 10, 20, "Print"],
-Cell[27981, 640, 555, 11, 20, "Print"]
+Cell[28630, 661, 549, 10, 20, "Print"],
+Cell[29182, 673, 601, 11, 20, "Print"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[28585, 657, 10206, 226, 823, "Input"],
-Cell[38794, 885, 409, 9, 20, "Print"]
+Cell[29832, 690, 8949, 200, 718, "Input"],
+Cell[38784, 892, 481, 10, 20, "Print"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[39240, 899, 143, 2, 27, "Input"],
-Cell[39386, 903, 40368, 1238, 589, "Output"]
+Cell[39302, 907, 143, 2, 27, "Input"],
+Cell[39448, 911, 40447, 1240, 589, "Output"]
 }, Open  ]]
 }
 ]
