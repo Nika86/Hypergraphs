@@ -1,11 +1,18 @@
 Notebook[{
+
+Cell[CellGroupData[{
 Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Get", "[", 
+   RowBox[{
+    RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+    "\"\<HypergraphFunctions.m\>\""}], "]"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"numQubits", "=", "5"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"baseCardinalities", " ", "=", " ", 
    RowBox[{"{", 
-    RowBox[{"1", ",", "3"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{"1", ",", "2"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"dCardinalities", "=", 
@@ -137,7 +144,7 @@ Cell[BoxData[{
        RowBox[{"Min", "[", 
         RowBox[{"Map", "[", 
          RowBox[{"Length", ",", "#"}], "]"}], "]"}], "\[GreaterEqual]", " ", 
-       "3"}], "&"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+       "2"}], "&"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"Print", "[", 
@@ -298,7 +305,36 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"Print", "[", 
    RowBox[{"\"\<Erasure correcting codes: \>\"", ",", 
-    RowBox[{"Length", "[", "ECCs", "]"}]}], "]"}], ";"}]}], "Input"]
+    RowBox[{"Length", "[", "ECCs", "]"}]}], "]"}], ";"}]}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Base hypergraphs: \"\>", "\[InvisibleSpace]", "24576"}],
+  SequenceForm["Base hypergraphs: ", 24576],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Filtered base hypergraphs: \"\>", "\[InvisibleSpace]", "768"}],
+  
+  SequenceForm["Filtered base hypergraphs: ", 768],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Difference hypergraphs: \"\>", "\[InvisibleSpace]", "26"}],
+  SequenceForm["Difference hypergraphs: ", 26],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Erasure correcting codes: \"\>", "\[InvisibleSpace]", "13832"}],
+  SequenceForm["Erasure correcting codes: ", 13832],
+  Editable->False]], "Print"]
+}, Open  ]]
+}, Open  ]]
 },
 WindowSize->{1225, 756},
 WindowMargins->{{-2, Automatic}, {Automatic, 0}},

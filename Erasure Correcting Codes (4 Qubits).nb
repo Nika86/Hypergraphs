@@ -1,5 +1,10 @@
 Notebook[{
-Cell[BoxData[
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Get", "[", 
+   RowBox[{
+    RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+    "\"\<HypergraphFunctions.m\>\""}], "]"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"isCorrectPair", "[", 
@@ -50,7 +55,7 @@ Cell[BoxData[
              "\[IndentingNewLine]", "]"}], ";"}]}], "\[IndentingNewLine]", 
           "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
       "\[IndentingNewLine]", "isCorrect"}]}], "\[IndentingNewLine]", "]"}]}], 
-  ";"}]], "Input"],
+  ";"}]}], "Input"],
 
 Cell[CellGroupData[{
 
@@ -204,81 +209,9 @@ Cell[BoxData[{
    "Remove", " ", "isomorphic", " ", "hypergraphs", " ", "from", " ", "the", 
     " ", "filtered", " ", "set"}], " ", "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"permutations", "=", 
-   RowBox[{"Permutations", "[", 
-    RowBox[{"Range", "[", "numQubits", "]"}], "]"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"Clear", "[", "alreadyFound", "]"}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"For", "[", 
-   RowBox[{
-    RowBox[{"i", "=", "1"}], ",", 
-    RowBox[{"i", "\[LessEqual]", 
-     RowBox[{"Length", "[", "filteredBaseHs", "]"}]}], ",", 
-    RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{
-      RowBox[{"alreadyFound", "[", 
-       RowBox[{"filteredBaseHs", "[", 
-        RowBox[{"[", "i", "]"}], "]"}], "]"}], "=", "False"}], ";"}]}], 
-   "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"uniqueBaseData", "=", 
-   RowBox[{
-    RowBox[{"Reap", "[", "\[IndentingNewLine]", 
-     RowBox[{
-      RowBox[{"For", "[", 
-       RowBox[{
-        RowBox[{"i", "=", "1"}], ",", 
-        RowBox[{"i", "\[LessEqual]", 
-         RowBox[{"Length", "[", "filteredBaseHs", "]"}]}], ",", 
-        RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
-        RowBox[{
-         RowBox[{"If", "[", 
-          RowBox[{
-           RowBox[{
-            RowBox[{"alreadyFound", "[", 
-             RowBox[{"filteredBaseHs", "[", 
-              RowBox[{"[", "i", "]"}], "]"}], "]"}], "\[Equal]", "True"}], 
-           ",", "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
-           RowBox[{
-            RowBox[{"Sow", "[", 
-             RowBox[{"filteredBaseHs", "[", 
-              RowBox[{"[", "i", "]"}], "]"}], "]"}], ";", 
-            "\[IndentingNewLine]", 
-            RowBox[{"For", "[", 
-             RowBox[{
-              RowBox[{"j", "=", "1"}], ",", 
-              RowBox[{"j", "\[LessEqual]", 
-               RowBox[{"Length", "[", "permutations", "]"}]}], ",", 
-              RowBox[{"j", "++"}], ",", "\[IndentingNewLine]", 
-              RowBox[{
-               RowBox[{
-                RowBox[{"alreadyFound", "[", 
-                 RowBox[{"PermuteVertices", "[", 
-                  RowBox[{
-                   RowBox[{"filteredBaseHs", "[", 
-                    RowBox[{"[", "i", "]"}], "]"}], ",", 
-                   RowBox[{"permutations", "[", 
-                    RowBox[{"[", "j", "]"}], "]"}], ",", "numQubits"}], "]"}],
-                  "]"}], "=", "True"}], ";"}]}], "\[IndentingNewLine]", "]"}],
-             ";"}]}], "\[IndentingNewLine]", "]"}], ";"}]}], 
-       "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", "]"}], "[", 
-    RowBox[{"[", "2", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"If", "[", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"Length", "[", "uniqueBaseData", "]"}], ">", "0"}], ",", 
-    "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{"filteredBaseHs", "=", 
-      RowBox[{"uniqueBaseData", "[", 
-       RowBox[{"[", "1", "]"}], "]"}]}], ";"}], ",", "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{"filteredBaseHs", "=", 
-      RowBox[{"{", "}"}]}], ";"}]}], "\[IndentingNewLine]", "]"}], 
+  RowBox[{"filteredBaseHs", "=", 
+   RowBox[{"removePermutations", "[", 
+    RowBox[{"filteredBaseHs", ",", " ", "numQubits"}], "]"}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -545,83 +478,9 @@ Cell[BoxData[
       RowBox[{"Length", "[", "uniqueBases", "]"}]}], "]"}], ";"}], 
    "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{
-    RowBox[{"permutations", "=", 
-     RowBox[{"Permutations", "[", 
-      RowBox[{"Range", "[", "numQubits", "]"}], "]"}]}], ";"}], 
-   "\[IndentingNewLine]", 
-   RowBox[{
-    RowBox[{"Clear", "[", "alreadyFound", "]"}], ";"}], "\[IndentingNewLine]", 
-   RowBox[{
-    RowBox[{"For", "[", 
-     RowBox[{
-      RowBox[{"i", "=", "1"}], ",", 
-      RowBox[{"i", "\[LessEqual]", 
-       RowBox[{"Length", "[", "uniqueBases", "]"}]}], ",", 
-      RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
-      RowBox[{
-       RowBox[{
-        RowBox[{"alreadyFound", "[", 
-         RowBox[{"uniqueBases", "[", 
-          RowBox[{"[", "i", "]"}], "]"}], "]"}], "=", "False"}], ";"}]}], 
-     "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", 
-   RowBox[{
-    RowBox[{"uniqueBaseData", "=", 
-     RowBox[{
-      RowBox[{"Reap", "[", "\[IndentingNewLine]", 
-       RowBox[{
-        RowBox[{"For", "[", 
-         RowBox[{
-          RowBox[{"i", "=", "1"}], ",", 
-          RowBox[{"i", "\[LessEqual]", 
-           RowBox[{"Length", "[", "uniqueBases", "]"}]}], ",", 
-          RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
-          RowBox[{
-           RowBox[{"If", "[", 
-            RowBox[{
-             RowBox[{
-              RowBox[{"alreadyFound", "[", 
-               RowBox[{"uniqueBases", "[", 
-                RowBox[{"[", "i", "]"}], "]"}], "]"}], "\[Equal]", "True"}], 
-             ",", "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
-             RowBox[{
-              RowBox[{"Sow", "[", 
-               RowBox[{"uniqueBases", "[", 
-                RowBox[{"[", "i", "]"}], "]"}], "]"}], ";", 
-              "\[IndentingNewLine]", 
-              RowBox[{"For", "[", 
-               RowBox[{
-                RowBox[{"j", "=", "1"}], ",", 
-                RowBox[{"j", "\[LessEqual]", 
-                 RowBox[{"Length", "[", "permutations", "]"}]}], ",", 
-                RowBox[{"j", "++"}], ",", "\[IndentingNewLine]", 
-                RowBox[{
-                 RowBox[{
-                  RowBox[{"alreadyFound", "[", 
-                   RowBox[{"PermuteVertices", "[", 
-                    RowBox[{
-                    RowBox[{"uniqueBases", "[", 
-                    RowBox[{"[", "i", "]"}], "]"}], ",", 
-                    RowBox[{"permutations", "[", 
-                    RowBox[{"[", "j", "]"}], "]"}], ",", "numQubits"}], "]"}],
-                    "]"}], "=", "True"}], ";"}]}], "\[IndentingNewLine]", 
-               "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";"}]}], 
-         "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", "]"}], 
-      "[", 
-      RowBox[{"[", "2", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
-   RowBox[{
-    RowBox[{"If", "[", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"Length", "[", "uniqueBaseData", "]"}], ">", "0"}], ",", 
-      "\[IndentingNewLine]", 
-      RowBox[{
-       RowBox[{"uniqueBases", "=", 
-        RowBox[{"uniqueBaseData", "[", 
-         RowBox[{"[", "1", "]"}], "]"}]}], ";"}], ",", "\[IndentingNewLine]", 
-      
-      RowBox[{
-       RowBox[{"uniqueBases", "=", 
-        RowBox[{"{", "}"}]}], ";"}]}], "\[IndentingNewLine]", "]"}], ";"}], 
+    RowBox[{"uniqueBases", "=", 
+     RowBox[{"removePermutations", "[", 
+      RowBox[{"uniqueBases", ",", "numQubits"}], "]"}]}], ";"}], 
    "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"Print", "[", 
@@ -719,6 +578,18 @@ Cell[BoxData[
      " ", "than", " ", "4", " ", 
      RowBox[{
       RowBox[{"qubits", " ", "!!"}], "!"}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"!!", 
+     RowBox[{"!", " ", "Also"}]}], ",", " ", 
+    RowBox[{
+    "probably", " ", "qubit", " ", "permutation", " ", "and", " ", "codeword",
+      " ", "permutation", " ", "ellimination", " ", "should", " ", "work", 
+     " ", "together"}], ",", " ", 
+    RowBox[{"not", " ", "to", " ", "miss", " ", "a", " ", "permuted", " ", 
+     RowBox[{
+      RowBox[{"code", " ", "!!"}], "!"}]}]}], " ", "*)"}], 
   "\[IndentingNewLine]", 
   RowBox[{
    RowBox[{
@@ -842,8 +713,8 @@ Cell[BoxData[
                     RowBox[{"otherBases", "[", 
                     RowBox[{"[", "j", "]"}], "]"}], ",", 
                     RowBox[{"applicableDHs", "[", 
-                    RowBox[{"[", "k", "]"}], "]"}]}], "]"}], ",", 
-                    "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
+                    RowBox[{"[", "k", "]"}], "]"}], ",", "numQubits"}], "]"}],
+                     ",", "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
                     RowBox[{
                     RowBox[{"Flag", "=", "0"}], ";"}]}], 
                     "\[IndentingNewLine]", "]"}], ";"}]}], 
@@ -2149,7 +2020,7 @@ Cell[BoxData[
 }, Open  ]]
 },
 WindowSize->{1225, 756},
-WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowMargins->{{-2, Automatic}, {Automatic, 0}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
