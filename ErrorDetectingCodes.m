@@ -61,6 +61,31 @@ findAllCodes[baseH_, numQubits_, dHs_, dimension_, foundSoFar_, searchedUpTo_] :
 	];
 ];
 
+hasCodeRecursive[baseH_, numQubits_, dHs_, dimension_, foundSoFar_, searchedUpTo_] := Module[{lastInd, prevDiffInd, lastBase, diffH, foundCode = False},
+	If[Length[foundSoFar] == dimension - 1,
+		foundCode = True,
+		For[lastInd = searchedUpTo, !foundCode && lastInd <= Length[dHs] + 1 - (dimension - 1 - Length[foundSoFar]), lastInd++,
+			lastBase = overlay[baseH, dHs[[lastInd]]];
+			Flag = 1;
+			For[prevDiffInd = 1, prevDiffInd <= Length[foundSoFar] && Flag == 1, prevDiffInd++,
+				diffH = overlay[dHs[[foundSoFar[[prevDiffInd]]]], dHs[[lastInd]]];
+				If[!isCorrectDiff[diffH, numQubits],
+					Flag = 0;
+				];
+				If[!isCorrectPair[lastBase, diffH, numQubits],
+					Flag = 0;
+				];
+			];
+			If[Flag == 1,
+				foundCode = hasCodeRecursive[baseH, numQubits, dHs, dimension, Append[foundSoFar, lastInd], lastInd + 1];
+			];
+		];
+	];
+	foundCode
+];
+
+hasCode[baseH_, numQubits_, dHs_, dimension_] := hasCodeRecursive[baseH, numQubits, dHs, dimension, {}, 1];
+
 getAllCodes[baseH_, numQubits_, dHs_, dimension_] := Module[{codeData},
 	codeData = Reap[
 		findAllCodes[baseH, numQubits, dHs, dimension, {}, 1];
