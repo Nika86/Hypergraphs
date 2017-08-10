@@ -60,4 +60,26 @@ removePermutations[hList_, numQubits_] := Module[{permutations = Permutations[Ra
 	]
 ];
 
+generateKReductions[h_, indexList_] := Module[{reductionList = {}},
+	If[Length[indexList] == 0,
+		{h},
+		Join[
+			generateKReductions[delete[h, indexList[[1]]], indexList[[2 ;;]]],
+			generateKReductions[shrink[h, indexList[[1]]], indexList[[2 ;;]]]
+		]
+	]
+];
+
+checkKRDMHG[h_, indexList_, numQubits_] := Module[{reductionList, Flag = True, i, j},
+	reductionList = generateKReductions[h, indexList];
+	For [i = 1, i <= Length[reductionList] && Flag, i++,
+		For [j = i + 1, j <= Length[reductionList] && Flag, j++,
+			If[!areOrthogonal[reductionList[[i]], reductionList[[j]], numQubits],
+				Flag = False;
+			];
+		];
+	];
+	Flag
+];
+
 EndPackage[];

@@ -61,9 +61,19 @@ findAllCodes[baseH_, numQubits_, dHs_, dimension_, foundSoFar_, searchedUpTo_] :
 	];
 ];
 
-hasCodeRecursive[baseH_, numQubits_, dHs_, dimension_, foundSoFar_, searchedUpTo_] := Module[{lastInd, prevDiffInd, lastBase, diffH, foundCode = False},
+getAllCodes[baseH_, numQubits_, dHs_, dimension_] := Module[{codeData},
+	codeData = Reap[
+		findAllCodes[baseH, numQubits, dHs, dimension, {}, 1];
+	][[2]];
+	If[Length[codeData] > 0,
+		codeData[[1]],
+		{}
+	]
+];
+
+hasCodeRecursive[baseH_, numQubits_, dHs_, dimension_, foundSoFar_, searchedUpTo_] := Module[{lastInd, prevDiffInd, lastBase, diffH, Flag, foundCode = False},
 	If[Length[foundSoFar] == dimension - 1,
-		foundCode = True,
+		foundCode = True;,
 		For[lastInd = searchedUpTo, !foundCode && lastInd <= Length[dHs] + 1 - (dimension - 1 - Length[foundSoFar]), lastInd++,
 			lastBase = overlay[baseH, dHs[[lastInd]]];
 			Flag = 1;
@@ -85,15 +95,5 @@ hasCodeRecursive[baseH_, numQubits_, dHs_, dimension_, foundSoFar_, searchedUpTo
 ];
 
 hasCode[baseH_, numQubits_, dHs_, dimension_] := hasCodeRecursive[baseH, numQubits, dHs, dimension, {}, 1];
-
-getAllCodes[baseH_, numQubits_, dHs_, dimension_] := Module[{codeData},
-	codeData = Reap[
-		findAllCodes[baseH, numQubits, dHs, dimension, {}, 1];
-	][[2]];
-	If[Length[codeData] > 0,
-		codeData[[1]],
-		{}
-	]
-];
 
 EndPackage[];
