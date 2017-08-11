@@ -25,8 +25,20 @@ memWeight[h_, numQubits_] := memWeight[h, numQubits] = If[numQubits == 0,
 	]
 ];
 
-weight[h_, numQubits_] := If[numQubits <= memThreshold,
+weight[h_, numQubits_] := Which[
+	Length[h] == 0,
+	2^numQubits,
+
+	Length[h] == 1,
+	2^numQubits - 2^(1 + numQubits - Length[h[[1]]]),
+
+	Max[h] < numQubits,
+	2^(numQubits - Max[h]) weight[h, Max[h]],
+
+	numQubits <= memThreshold,
 	memWeight[h, numQubits],
+
+	True,
 	With[{d = delete[h, numQubits], s = unsortedShrink[h, numQubits]},
 		weight[d, numQubits - 1] + weight[s, numQubits - 1]
 	]
